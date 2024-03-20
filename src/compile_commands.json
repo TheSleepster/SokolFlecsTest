@@ -1,0 +1,14 @@
+[
+{
+  "directory": "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/bin",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\CLANG_~1.EXE  @CMakeFiles/test.dir/includes_CXX.rsp -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -o CMakeFiles\\test.dir\\core\\main.cpp.obj -c C:\\Users\\jal4dsox\\C++Stuff\\SokolFlecsTest\\src\\core\\main.cpp",
+  "file": "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/src/core/main.cpp",
+  "output": "CMakeFiles/test.dir/core/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/bin",
+  "command": "C:\\PROGRA~1\\LLVM\\bin\\clang.exe  @CMakeFiles/test.dir/includes_C.rsp -O0 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -g -Xclang -gcodeview -o CMakeFiles\\test.dir\\C_\\Users\\jal4dsox\\C++Stuff\\SokolFlecsTest\\include\\glad\\src\\glad.c.obj -c C:\\Users\\jal4dsox\\C++Stuff\\SokolFlecsTest\\include\\glad\\src\\glad.c",
+  "file": "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/glad/src/glad.c",
+  "output": "CMakeFiles/test.dir/C_/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/glad/src/glad.c.obj"
+}
+]
