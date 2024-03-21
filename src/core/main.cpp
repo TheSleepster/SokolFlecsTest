@@ -8,6 +8,7 @@ global char *shaderSource;
 global unsigned int shaderProgram;
 global unsigned int VAO;
 global unsigned int VBO;
+global unsigned int IBO;
 
 global char glInfoLog[512];
 global int success;
@@ -95,20 +96,28 @@ void GetOpenGLVersionInfo() {
 void handleVertexData() {
     float vertices[] = {
         // Triangle 1
-        -0.5f, -0.5f, 0.0f, // Vertex 1 position
-         1.0f,  0.0f, 0.0f, // Vertex 1 color (red)
-         0.5f, -0.5f, 0.0f, // Vertex 2 position
+         0.0f, -0.5f, 0.0f, // Vertex 0 position
+         1.0f,  0.0f, 0.0f, // Vertex 0 color (red)
+         0.5f, -0.5f, 0.0f, // Vertex 1 position
+         0.0f,  0.0f, 1.0f, // Vertex 1 color (blue)
+         0.5f,  0.5f, 0.0f, // Vertex 2 position
          0.0f,  1.0f, 0.0f, // Vertex 2 color (green)
-         0.5f,  0.5f, 0.0f, // Vertex 3 position
-         0.0f,  0.0f, 1.0f, // Vertex 3 color (blue)
 
         // Triangle 2
-         0.5f,  0.5f, 0.0f, // Vertex 4 position
-         0.0f,  0.0f, 1.0f, // Vertex 4 color (blue)
+        -0.5f,  0.5f, 0.0f, // Vertex 3 position
+         0.0f,  0.0f, 1.0f, // Vertex 3 color (blue)
+        -0.5f, -0.5f, 0.0f, // Vertex 4 position
+         1.0f,  1.0f, 1.0f, // Vertex 4 color (white)
+
+        // Triangle 3
         -0.5f,  0.5f, 0.0f, // Vertex 5 position
          0.0f,  1.0f, 0.0f, // Vertex 5 color (green)
-        -0.5f, -0.5f, 0.0f, // Vertex 6 position
-         1.0f,  0.0f, 0.0f  // Vertex 6 color (red)
+    };
+
+    unsigned int indices[] {
+        0, 1, 2,
+        2, 0, 3,
+        3, 0, 4
     };
 
     glGenVertexArrays(1, &VAO);
@@ -117,6 +126,15 @@ void handleVertexData() {
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // NOTE: INDEX BUFFER HERE
+    
+    glGenBuffers(1, &IBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+    
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // NOTE: INDEX BUFFER HERE
 
     // Configure position attribute
     glEnableVertexAttribArray(0);
@@ -138,7 +156,8 @@ void draw() {
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    //glDrawArrays(GL_TRIANGLES, 0, 9);
+    glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, nullptr);
 
     glBindVertexArray(0);
     glUseProgram(0);
