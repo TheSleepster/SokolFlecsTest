@@ -1,3 +1,5 @@
+#pragma once
+
 #include "headers.hpp"
 
 void AlpineCreateWindow(); 
@@ -9,6 +11,8 @@ unsigned int createShaderProgram(const char *vertexShaderSource, const char *fra
 unsigned int CompileShader(unsigned int type, const char *source);
 void handleApplicationEvents();
 void handleApplicationInput();
+void handleVertexData();
+void draw();
 
 struct application {
     SDL_Window *window;

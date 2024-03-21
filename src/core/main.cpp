@@ -1,4 +1,3 @@
-#include "headers.hpp"
 #include "main.hpp"
 
 #define AlpineMain main
@@ -7,11 +6,15 @@ global application application;
 
 global char *shaderSource;
 global unsigned int shaderProgram;
+global unsigned int VAO;
+global unsigned int VBO;
 
 global char glInfoLog[512];
 global int success;
 
 int AlpineMain() { 
+    GLenum error;
+
     AlpineCreateWindow();
     GetOpenGLVersionInfo();
 
@@ -19,13 +22,13 @@ int AlpineMain() {
         handleApplicationEvents();
         handleApplicationInput();
 
-        //drawing
+        draw();
         
         SDL_GL_SwapWindow(application.window);
     }
 }
 
-void AlpineCreateWindow() {    
+void AlpineCreateWindow() { 
     application.closeRequest = false;
     application.window = NULL;
     application.context = NULL;
@@ -48,9 +51,10 @@ void AlpineCreateWindow() {
         printf("Failed to initialize GLAD!\n");
         exit(1);
     }
-
     glViewport(0, 0, 1280, 720);
 
+    handleVertexData();
+    handleOpenGLPipeline();
 }
 
 void handleApplicationEvents() {
@@ -86,16 +90,66 @@ void GetOpenGLVersionInfo() {
     printf("Shading Language: %s\n\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 }
 
-//NOTE: VERTEX MANAGEMENT
+// NOTE: VERTEX MANAGEMENT
 
-    
+void handleVertexData() {
+    float vertices[] = {
+        // Triangle 1
+        -0.5f, -0.5f, 0.0f, // Vertex 1 position
+         1.0f,  0.0f, 0.0f, // Vertex 1 color (red)
+         0.5f, -0.5f, 0.0f, // Vertex 2 position
+         0.0f,  1.0f, 0.0f, // Vertex 2 color (green)
+         0.5f,  0.5f, 0.0f, // Vertex 3 position
+         0.0f,  0.0f, 1.0f, // Vertex 3 color (blue)
+
+        // Triangle 2
+         0.5f,  0.5f, 0.0f, // Vertex 4 position
+         0.0f,  0.0f, 1.0f, // Vertex 4 color (blue)
+        -0.5f,  0.5f, 0.0f, // Vertex 5 position
+         0.0f,  1.0f, 0.0f, // Vertex 5 color (green)
+        -0.5f, -0.5f, 0.0f, // Vertex 6 position
+         1.0f,  0.0f, 0.0f  // Vertex 6 color (red)
+    };
+
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Configure position attribute
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+
+    // Configure color attribute
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+
+    glBindVertexArray(0);
+}
+
+// NOTE: DRAW FUNCTION
+
+void draw() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+    glUseProgram(shaderProgram);
+    glBindVertexArray(VAO);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glBindVertexArray(0);
+    glUseProgram(0);
+}
 
 // NOTE: SHADER MANAGEMENT
 
 
 void handleOpenGLPipeline() {
-    const char *vertexShaderSource = getShaderFromFile("../src/.shader/vertexshader.glsl");
-    const char *fragmentShaderSource = getShaderFromFile("../src/.shader/fragmentshader.glsl");
+    const char *vertexShaderSource = getShaderFromFile("../src/.shader/vertexShader.glsl");
+    const char *fragmentShaderSource = getShaderFromFile("../src/.shader/fragmentShader.glsl");
 
     shaderProgram = createShaderProgram(vertexShaderSource, fragmentShaderSource);
     free((void *)shaderSource);
