@@ -1,4 +1,5 @@
 #include "main.hpp"
+#include <rlgl.h>
 
 #define AlpineMain main
 
@@ -165,7 +166,6 @@ void draw() {
 
 // NOTE: SHADER MANAGEMENT
 
-
 void handleOpenGLPipeline() {
     const char *vertexShaderSource = getShaderFromFile("../src/.shader/vertexShader.glsl");
     const char *fragmentShaderSource = getShaderFromFile("../src/.shader/fragmentShader.glsl");
@@ -174,7 +174,8 @@ void handleOpenGLPipeline() {
     free((void *)shaderSource);
 }
 
-unsigned int createShaderProgram(const char *vertexShaderSource, const char *fragmentShaderSource) {
+unsigned int 
+createShaderProgram(const char *vertexShaderSource, const char *fragmentShaderSource) {
     unsigned int programObject = glCreateProgram();
 
     unsigned int vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
@@ -198,7 +199,8 @@ unsigned int createShaderProgram(const char *vertexShaderSource, const char *fra
     return(programObject); 
 }
 
-unsigned int CompileShader(unsigned int type, const char *source) {
+unsigned int 
+CompileShader(unsigned int type, const char *source) {
     unsigned int shaderObject;
 
     if(type == GL_FRAGMENT_SHADER) {
@@ -222,7 +224,8 @@ unsigned int CompileShader(unsigned int type, const char *source) {
 
 // NOTE: FILE PARSER
 
-const char *getShaderFromFile(const char *filepath) {
+const char 
+*getShaderFromFile(const char *filepath) {
     FILE* file;
     long size;
 

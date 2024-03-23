@@ -13,6 +13,8 @@
 #include <glad/glad.h>
 #include <SDL.h>
 #include <flecs.h>
+#include <cglm.h>
+#include <struct.h>
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720 

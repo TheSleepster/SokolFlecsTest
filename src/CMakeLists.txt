@@ -24,6 +24,8 @@ set(FLECS_LIBRARY "C:/Program Files (x86)/flecs/lib/flecs_static.lib")
 set(CGLM_LIBRARY "C:/Users/jal4dsox/lib/cglm/build/cglm.lib")
 set(CGLM_INCLUDE_DIR "C:/Users/jal4dsox/lib/cglm/include/cglm")
 
+set(RLGL_INCLUDE_DIR "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/Raylib")
+
 find_package(SDL3 REQUIRED)
 find_package(SDL3_image REQUIRED)
 
@@ -31,6 +33,7 @@ target_include_directories(test
     PUBLIC ${SDL3_INCLUDE_DIRS}
     PUBLIC ${SDL3IMAGE_INCLUDE_DIRS}
     PUBLIC ${FLECS_INCLUDE_DIRS}
+    PUBLIC ${RLGL_INDLUDE_DIR}
     PRIVATE ${CGLM_INCLUDE_DIR}
 )
 
@@ -40,10 +43,12 @@ include_directories(
     SYSTEM "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/glad/include"
     SYSTEM "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/sokol"
     SYSTEM "C:/Program Files (x86)/flecs/include"
+    SYSTEM "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/Raylib"
 )
 
 link_directories(
     SYSTEM "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/glad/include"
     SYSTEM "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/sokol"
     SYSTEM "C:/Program Files (x86)/flecs/include"
+    SYSTEM "C:/Users/jal4dsox/C++Stuff/SokolFlecsTest/include/Raylib"
 )
